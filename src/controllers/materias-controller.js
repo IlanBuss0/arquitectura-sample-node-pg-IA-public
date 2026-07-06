@@ -23,6 +23,8 @@ router.get('', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         let id = req.params.id;
+        console.log(`MateriasController.getById(${id})`);
+
         const returnEntity = await currentService.getByIdAsync(id);
         if (returnEntity != null){
             res.status(StatusCodes.OK).json(returnEntity);
@@ -38,6 +40,8 @@ router.get('/:id', async (req, res) => {
 router.post('', async (req, res) => {
     try {
         let entity = req.body;
+        console.log(`MateriasController.post(${JSON.stringify(entity)})`);
+
         const newId = await currentService.createAsync(entity);
         if (newId > 0 ){
             res.status(StatusCodes.CREATED).json(newId);
@@ -54,6 +58,8 @@ router.put('/:id', async (req, res) => {
     try {
         let id = parseInt(req.params.id);
         let entity = req.body;
+
+        console.log(`MateriasController.put(${id}, ${JSON.stringify(entity)})`);
 
         if (entity.id && parseInt(entity.id) !== id) {
             return res.status(StatusCodes.BAD_REQUEST).send(`El id de la URL (${id}) no coincide con el id del body (${entity.id}).`);
@@ -75,6 +81,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         let id = req.params.id;
+        console.log(`MateriasController.deleteById(${id})`);
+
         const rowCount = await currentService.deleteByIdAsync(id);
         if (rowCount != 0){
             res.status(StatusCodes.OK).json(null);

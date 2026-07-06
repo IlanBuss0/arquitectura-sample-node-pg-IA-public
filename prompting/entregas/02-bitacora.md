@@ -1,4 +1,4 @@
-# 📓 Bitácora de Prompts — Ejercicio N° ___
+# 📓 Bitácora de Prompts — Ejercicio N° 2
 
 > Copiá este archivo por cada ejercicio que entregues. Nombralo, por ejemplo, `entregas/01-bitacora.md`.
 > Esta bitácora **es parte de la nota**. Un ejercicio sin bitácora no se corrige.
@@ -7,7 +7,7 @@
 
 ## Datos
 
-- **Alumno/a:** ___
+- **Alumno/a:** Ilan Busso, Mateo Milano
 - **Ejercicio:** N° ___ — ___________________
 - **Fecha:** ___
 - **Modelo de IA usado:** (ej: ChatGPT, Claude, Gemini, Copilot) ___
