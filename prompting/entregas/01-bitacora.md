@@ -139,7 +139,8 @@ Postman:
 Cubrí: qué proceso seguiste, qué decisiones tomaste y por qué, qué aprendiste, y —lo más importante— **qué corregiste de lo que te dio la IA**. Escribí con tus palabras; esto se contrasta con el oral.
 
 ```
-...
+Por ahora fue bastante poco la verdad, simplemente pedir algo básico, revisar funcionamiento con postman, y corregir alguna que otra cosa relacionada con interpretacion del acceso al repositorio. Lo que podemos aprender es a dar un contexto de acceso a la hora de darle el prompt principal para evitar malentendidos.
+Tomamos la decisión de que la IA avance por su cuenta, y confiar en que, en caso de haber errores, al ser algo basico, ibamos a poder encontrar de donde surgían o porque ocurrían. Es probable que para un futuro tengamos que asumir que van a haber errores.
 ```
 
 ---
