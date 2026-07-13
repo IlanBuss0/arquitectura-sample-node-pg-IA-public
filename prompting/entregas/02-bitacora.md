@@ -8,9 +8,9 @@
 ## Datos
 
 - **Alumno/a:** Ilan Busso, Mateo Milano
-- **Ejercicio:** N° ___ — ___________________
-- **Fecha:** ___
-- **Modelo de IA usado:** (ej: ChatGPT, Claude, Gemini, Copilot) ___
+- **Ejercicio:** N° _2__ — _____Refactorizaciondel CRUD repetido______________
+- **Fecha:** __10/7_
+- **Modelo de IA usado:** (ej: ChatGPT, Claude, Gemini, Copilot) __ChatGPT_
 
 ---
 
@@ -19,7 +19,7 @@
 Resumí en 2–3 líneas el objetivo del ejercicio con tus palabras (no copiado del enunciado).
 
 ```
-...
+me pidieron que le pida a la IA que identifique los CRUD repetidos y que me proponga algunas estrategias para refactorizar y simplifcar esta repeticion. Luego decidir una e implementarla.
 ```
 
 ---
@@ -32,35 +32,84 @@ Pegá **todos** los prompts que usaste, en orden, con la respuesta resumida y qu
 
 **Lo que escribí:**
 ```
-...
+@GitHub en base al repositorio "arquitectura-sample-node-pg-IA-public".
+Sos un developer senior especializado en node js y uso de postgress.
+Estas revisando un trabajo con la caracteristica que es un modelo en capas, que usa una base de datos en postgres.
+Al trabajar en este repositorio encontraras que hay varios modulos que se encuentran bastante parecido, bastante repetidos, se puede ver como hay modulos que repiten constantemente el crud y solo cambian algunos nombres.
+tu objetivo ahora es charlar conmigo para que veamos cual es el metodo mas eficiente para simplificar estas repeticiones.
+Al programas recorda respetar la estructura que estamos siguiendo en el codigo
 ```
 
 **Auto-chequeo de las 5 partes EFSI** (marcá lo que incluiste):
-- [ ] Rol
-- [ ] Contexto (¿pegaste código del proyecto?)
-- [ ] Tarea
-- [ ] Restricciones
+- [ x] Rol
+- [ x] Contexto (¿pegaste código del proyecto?)
+- [ x] Tarea
+- [ x] Restricciones
 - [ ] Iteración
 
 **Qué me devolvió (resumen):**
 ```
-...
+Me dio varias opciones y me recomendo fuertemente la de herencia, creando un base-repository y un base-service para que luego se llame a esos y alumnos-repository, cursos-repository y materias-repository sean clases hijas de base-repository, lo mismo con services.
 ```
 
 **¿Me sirvió tal cual, o tuve que corregir/repreguntar?**
 ```
-...
+tuve que corregir y tambien pregunte ya que no estoy acostumbrado a herencia, por ende habian cosas que aparecian y no sabia que eran.
 ```
 
 ### Prompt #2
 
 **Lo que escribí:**
 ```
-...
+No debes en este trabajo modificar directamente el repositorio, dame el codigo a mi asi lo reviso y lo charlamos
 ```
 **Por qué necesité este segundo prompt** (qué falló o faltó en el anterior):
 ```
-...
+me falto indicarle que no modifique los repositorios sino que me muestre el codigo y lo charlemos un poco si noto algo raro
+```
+
+### Prompt #3
+
+**Lo que escribí:**
+```
+recorda que tambien tenes materias ademas de cursos y alumnos, fijate si ahi se actualizo para que veas como es
+```
+**Por qué necesité este segundo prompt** (qué falló o faltó en el anterior):
+```
+por algun motivo el repositorio no se encontraba actualizado y por ende no sabia la existencia de materias, lo actualice y ahi lo arreglo
+```
+
+### Prompt #4
+
+**Lo que escribí:**
+```
+nombre repository? estoy seguro que eso no es necesario
+```
+**Por qué necesité este segundo prompt** (qué falló o faltó en el anterior):
+```
+no es qye haya fallado como tal, sino que era una abstraccion muy especifica, estaba armado solo para los modulos que unicamente utilicen id y nombre.
+```
+
+### Prompt #5
+
+**Lo que escribí:**
+```
+perfecto, coincido con tu recomendacion, el problema es que ahora me mandaste todo menos alumnos repository.
+```
+**Por qué necesité este segundo prompt** (qué falló o faltó en el anterior):
+```
+me habia mandado solo el codigo de base repository pero queria ver como corregia materias-repository, cusros-repository, alumnos-repository
+```
+
+### Prompt #6
+
+**Lo que escribí:**
+```
+perfecto, ahora sigamos con los services, segui la misma estructura que la anterior
+```
+**Por qué necesité este segundo prompt** (qué falló o faltó en el anterior):
+```
+no fallo nada, unicamente le pedi que empecemos con los repository y despues con los services ya que habia detectado que tambien se repetian modulos dentro de los services.
 ```
 
 *(Repetí la estructura para cada prompt. Si resolviste todo con un solo prompt gigante, ⚠️ eso es 🟡 según EFSI — explicá por qué.)*
@@ -72,9 +121,10 @@ Pegá **todos** los prompts que usaste, en orden, con la respuesta resumida y qu
 Marcá esto **también en el código** con comentarios `// [IA]` y `// [YO]`. Acá resumilo:
 
 | Archivo / función | Lo generó la IA | Lo modifiqué/escribí yo | Por qué |
-|---|---|---|---|
-| | | | |
-| | | | |
+|base-repository|lo creo desde cero|||
+|todos los repository|modifico los modulos| | |
+|base-service|lo creo desde cero| | |
+|todos los services|modifico siguiendo la misma estructura en los repository| | |
 
 ---
 
@@ -83,7 +133,7 @@ Marcá esto **también en el código** con comentarios `// [IA]` y `// [YO]`. Ac
 > Si ponés "ninguno", probablemente no las viste. **Siempre** hay algo (un import de más, un estilo distinto, un caso borde olvidado, una mala práctica de seguridad).
 
 ```
-...
+habia hecho una abstraccion muy especifica que no ameritaba en este tp, por ende considere que no tenia sentido realizarla
 ```
 
 ---
@@ -103,7 +153,9 @@ Pegá el checklist de verificación del ejercicio y marcá lo que comprobaste **
 Cubrí: qué proceso seguiste, qué decisiones tomaste y por qué, qué aprendiste, y —lo más importante— **qué corregiste de lo que te dio la IA**. Escribí con tus palabras; esto se contrasta con el oral.
 
 ```
-...
+Empece contandole el problema y pidiendole distintas soluciones, luego elegi una de las opciones que me dio y le pedi que resuelva de esa manera.
+Encontre cosas que no ameritaba para este tp y que eran muy especificas y por ende decidi no ponerlo en el tp. Ademas habian cosas relacionadas a como se obtiene de una clase padre un modulo, etc, que yo no sabia por ende le pregunte que eran y me lo enseño.
+Aprendi como se importa una clase padre y como se importan los modulos ej "super(new cursos-repository)", que el super se usa para llamar al constructor de la clase padre.
 ```
 
 ---
