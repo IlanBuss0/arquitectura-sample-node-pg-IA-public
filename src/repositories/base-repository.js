@@ -3,18 +3,9 @@ import Db from './db-pg.js';
 export default class BaseRepository {
     constructor(tableName) {
         if (!tableName) {
-            throw new Error('BaseRepository necesita el nombre de una tabla.');
-        }
-
-        /*
-         * El nombre de la tabla no se puede enviar como parámetro $1.
-         * Por eso comprobamos que solo tenga caracteres permitidos.
-         *
-         * De todas formas, tableName será definido por los repositories
-         * del proyecto y nunca vendrá directamente desde el usuario.
-         */
-        if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(tableName)) {
-            throw new Error(`El nombre de tabla "${tableName}" no es válido.`);
+            throw new Error(
+                'BaseRepository necesita el nombre de una tabla.'
+            );
         }
 
         this.tableName = tableName;
@@ -26,7 +17,10 @@ export default class BaseRepository {
             `${this.constructor.name}.getAllAsync()`
         );
 
-        const sql = `SELECT * FROM ${this.tableName}`;
+        const sql = `
+            SELECT *
+            FROM ${this.tableName}
+        `;
 
         return await this.db.queryAll(sql);
     }

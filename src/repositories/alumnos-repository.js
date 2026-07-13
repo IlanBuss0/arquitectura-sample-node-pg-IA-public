@@ -4,7 +4,9 @@ export default class AlumnosRepository extends BaseRepository {
     constructor() {
         super('alumnos');
 
-        console.log('Estoy en: AlumnosRepository.constructor()');
+        console.log(
+            'Estoy en: AlumnosRepository.constructor()'
+        );
     }
 
     createAsync = async (entity) => {
@@ -46,7 +48,10 @@ export default class AlumnosRepository extends BaseRepository {
             `AlumnosRepository.updateAsync(${JSON.stringify(entity)})`
         );
 
-        const previousEntity = await this.getByIdAsync(entity.id);
+        const id = entity.id;
+
+        const previousEntity =
+            await this.getByIdAsync(id);
 
         if (previousEntity == null) {
             return 0;
@@ -64,14 +69,19 @@ export default class AlumnosRepository extends BaseRepository {
         `;
 
         const values = [
-            entity.id,
-            entity?.nombre ?? previousEntity.nombre,
-            entity?.apellido ?? previousEntity.apellido,
-            entity?.id_curso ?? previousEntity.id_curso,
-            entity?.fecha_nacimiento ?? previousEntity.fecha_nacimiento,
-            entity?.hace_deportes ?? previousEntity.hace_deportes
+            id,
+            entity?.nombre ??
+                previousEntity.nombre,
+            entity?.apellido ??
+                previousEntity.apellido,
+            entity?.id_curso ??
+                previousEntity.id_curso,
+            entity?.fecha_nacimiento ??
+                previousEntity.fecha_nacimiento,
+            entity?.hace_deportes ??
+                previousEntity.hace_deportes
         ];
 
         return await this.db.queryRowCount(sql, values);
     }
-}
+} 

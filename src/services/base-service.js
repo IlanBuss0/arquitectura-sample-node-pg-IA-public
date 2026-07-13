@@ -1,21 +1,21 @@
 import BaseRepository from './base-repository.js';
 
-export default class CursosRepository extends BaseRepository {
+export default class MateriasRepository extends BaseRepository {
     constructor() {
-        super('cursos');
+        super('materias');
 
         console.log(
-            'Estoy en: CursosRepository.constructor()'
+            'Estoy en: MateriasRepository.constructor()'
         );
     }
 
     createAsync = async (entity) => {
         console.log(
-            `CursosRepository.createAsync(${JSON.stringify(entity)})`
+            `MateriasRepository.createAsync(${JSON.stringify(entity)})`
         );
 
         const sql = `
-            INSERT INTO cursos (
+            INSERT INTO materias (
                 nombre
             )
             VALUES (
@@ -33,7 +33,7 @@ export default class CursosRepository extends BaseRepository {
 
     updateAsync = async (entity) => {
         console.log(
-            `CursosRepository.updateAsync(${JSON.stringify(entity)})`
+            `MateriasRepository.updateAsync(${JSON.stringify(entity)})`
         );
 
         const id = entity.id;
@@ -46,7 +46,7 @@ export default class CursosRepository extends BaseRepository {
         }
 
         const sql = `
-            UPDATE cursos
+            UPDATE materias
             SET nombre = $2
             WHERE id = $1
         `;
