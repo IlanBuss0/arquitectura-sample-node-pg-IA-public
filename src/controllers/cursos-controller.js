@@ -1,90 +1,77 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import CursosService from './../services/cursos-service.js'
+import CursosService from './../services/cursos-service.js';
+import { handleControllerRequest } from './../helpers/controller-helper.js';
 
 const router = Router();
 const currentService = new CursosService();
 
 router.get('', async (req, res) => {
-    try {
-        console.log(`CursosController.get`);
-        const returnArray = await currentService.getAllAsync();
-        if (returnArray != null){
-            res.status(StatusCodes.OK).json(returnArray);
-        } else {
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(`Error interno.`);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(`Error: ${error.message}`);
-    }
+    console.log(`CursosController.get`);
+
+    return handleControllerRequest({
+        res,
+        operation: () => currentService.getAllAsync(),
+        failureStatus: StatusCodes.INTERNAL_SERVER_ERROR,
+        failureBody: 'Error interno.'
+    });
 });
 
 router.get('/:id', async (req, res) => {
-    try {
-        let id = req.params.id;
-        const returnEntity = await currentService.getByIdAsync(id);
-        if (returnEntity != null){
-            res.status(StatusCodes.OK).json(returnEntity);
-        } else {
-            res.status(StatusCodes.NOT_FOUND).send(`No se encontro la entidad (id:${id}).`);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(`Error: ${error.message}`);
-    }
+    const id = req.params.id;
+
+    return handleControllerRequest({
+        res,
+        operation: () => currentService.getByIdAsync(id),
+        failureBody: `No se encontro la entidad (id:${id}).`
+    });
 });
 
 router.post('', async (req, res) => {
-    try {
-        let entity = req.body;
-        const newId = await currentService.createAsync(entity);
-        if (newId > 0 ){
-            res.status(StatusCodes.CREATED).json(newId);
-        } else {
-            res.status(StatusCodes.BAD_REQUEST).json(null);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(StatusCodes.BAD_REQUEST).send(`Error: ${error.message}`);
-    }
+    const entity = req.body;
+
+    return handleControllerRequest({
+        res,
+        operation: () => currentService.createAsync(entity),
+        isSuccess: (newId) => newId > 0,
+        successStatus: StatusCodes.CREATED,
+        failureStatus: StatusCodes.BAD_REQUEST,
+        failureBody: null,
+        errorStatus: StatusCodes.BAD_REQUEST
+    });
 });
 
 router.put('/:id', async (req, res) => {
-    try {
-        let id = parseInt(req.params.id);
-        let entity = req.body;
+    const id = parseInt(req.params.id);
+    const entity = req.body;
 
-        if (entity.id && parseInt(entity.id) !== id) {
-            return res.status(StatusCodes.BAD_REQUEST).send(`El id de la URL (${id}) no coincide con el id del body (${entity.id}).`);
-        }
-
-        entity.id = id;
-        const rowsAffected = await currentService.updateAsync(entity);
-        if (rowsAffected != 0){
-            res.status(StatusCodes.OK).json(rowsAffected);
-        } else {
-            res.status(StatusCodes.NOT_FOUND).send(`No se encontro la entidad (id:${id}).`);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(StatusCodes.BAD_REQUEST).send(`Error: ${error.message}`);
+    if (entity.id && parseInt(entity.id) !== id) {
+        return res
+            .status(StatusCodes.BAD_REQUEST)
+            .send(`El id de la URL (${id}) no coincide con el id del body (${entity.id}).`);
     }
+
+    entity.id = id;
+
+    return handleControllerRequest({
+        res,
+        operation: () => currentService.updateAsync(entity),
+        isSuccess: (rowsAffected) => rowsAffected != 0,
+        failureBody: `No se encontro la entidad (id:${id}).`,
+        errorStatus: StatusCodes.BAD_REQUEST
+    });
 });
 
 router.delete('/:id', async (req, res) => {
-    try {
-        let id = req.params.id;
-        const rowCount = await currentService.deleteByIdAsync(id);
-        if (rowCount != 0){
-            res.status(StatusCodes.OK).json(null);
-        } else {
-            res.status(StatusCodes.NOT_FOUND).send(`No se encontro la entidad (id:${id}).`);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(`Error: ${error.message}`);
-    }
+    const id = req.params.id;
+
+    return handleControllerRequest({
+        res,
+        operation: () => currentService.deleteByIdAsync(id),
+        isSuccess: (rowCount) => rowCount != 0,
+        successBody: () => null,
+        failureBody: `No se encontro la entidad (id:${id}).`
+    });
 });
 
 export default router;
