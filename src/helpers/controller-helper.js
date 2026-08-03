@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import LogHelper from './log-helper.js';
 
 /**
  * Ejecuta una operación asincrónica de un controller y centraliza
@@ -38,7 +39,7 @@ export async function handleControllerRequest({
 
         return res.status(failureStatus).send(failureBody);
     } catch (error) {
-        console.log(error);
+        LogHelper.logError(error);
         return res.status(errorStatus).send(`Error: ${error.message}`);
     }
 }
