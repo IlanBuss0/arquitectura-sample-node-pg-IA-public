@@ -1,6 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import LogHelper from './log-helper.js';
 
+/**
+ * Ejecuta una operación asincrónica de un controller y centraliza:
+ * - el try/catch;
+ * - la condición de éxito;
+ * - la respuesta exitosa;
+ * - la respuesta cuando la operación no fue exitosa;
+ * - el registro del error.
+ */
 export async function handleControllerRequest({
     res,
     operation,
